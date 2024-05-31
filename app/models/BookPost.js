@@ -3,7 +3,7 @@ const sequelize = require("../db");
 const BookInfo = require("./BookInfo");
 const Account = require("./Account");
 
-const Book = sequelize.define("book", {
+const BookPost = sequelize.define("bookPost", {
   Key: {
     type: Sequelize.INTEGER,
     primaryKey: true,
@@ -37,6 +37,6 @@ const Book = sequelize.define("book", {
   },
 });
 
-Book.belongsTo(BookInfo, { foreignKey: "book_info_id" });
+BookPost.belongsTo(BookInfo, { foreignKey: "book_info_id" });
 
-module.exports = Book;
+module.exports = BookPost;

@@ -3,9 +3,9 @@ const app = express();
 
 require("dotenv").config();
 
-const bookRoutes = require("./routes/bookRoutes");
+const bookPostRoutes = require("./routes/bookPostRoutes");
 
-app.use("/books", bookRoutes);
+app.use("/bookPosts", bookPostRoutes);
 
 app.use(express.json());
 
