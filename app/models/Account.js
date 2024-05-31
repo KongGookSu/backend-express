@@ -10,13 +10,16 @@ const Account = sequelize.define("accouont", {
     unique: true,
   },
   email: {
-    type: sequelize.STRING,
+    type: Sequelize.STRING,
     allowNull: false,
     unique: true,
   },
-  vendor: {},
+  vendor: {
+    type: Sequelize.STRING,
+    allowNull: false,
+  },
   nickname: {
-    type: sequelize.STRING,
+    type: Sequelize.STRING,
     allowNull: false,
     validate: {
       min: 1,
