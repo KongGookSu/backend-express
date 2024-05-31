@@ -45,6 +45,44 @@ router.put("/book-post/:id", async (req, res) => {
   }
 });
 
+// 책 게시물 상태 변경
+router.patch("/book-post/:id/rental", async (req, res) => {
+  // 유효 rental_state 값
+  const rentalStateEnum = { 0: "available", 1: "rented", 2: "booked" };
+  const validRentalStates = Object.values(rentalStateEnum);
+
+  try {
+    const { rental_state } = req.body;
+
+    // rental_state 값 검증
+    if (rental_state === undefined || rental_state === null) {
+      return res.status(400).json({ message: "Rental state is required." });
+    } else if (typeof rental_state === "number") {
+      rental_state = rentalStateEnum[rental_state];
+    }
+
+    if (!validRentalStates.includes(rental_state)) {
+      return res.status(400).json({
+        message: `Invalid rental state. Valid states are: ${validRentalStates.join(", ")}.`,
+      });
+    }
+
+    const [updatedRowsCount] = await BookPost.update(
+      { rental_state },
+      { where: { id: req.params.id } }
+    );
+
+    if (updatedRowsCount === 0) {
+      res.status(404).json({ message: "Book post not found." });
+    } else {
+      const bookPost = await BookPost.findByPk(req.params.id);
+      res.status(200).json(bookPost, { message: "Rental state updated." });
+    }
+  } catch (error) {
+    res.status(500).json({ message: "Failed to update rental state." });
+  }
+});
+
 // 모든 책 정보 전송
 // router.get("/book-posts", async (req, res) => {
 //   try {
