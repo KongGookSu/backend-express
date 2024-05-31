@@ -3,7 +3,7 @@ const sequelize = require("../db");
 const BookInfo = require("./BookInfo");
 const Account = require("./Account");
 
-const BookPost = sequelize.define("bookPost", {
+const BookPost = sequelize.define("book_post", {
   Key: {
     type: Sequelize.INTEGER,
     primaryKey: true,
